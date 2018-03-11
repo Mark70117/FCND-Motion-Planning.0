@@ -6,7 +6,7 @@ Mark Anderson // Feb 2018 cohort
 
 ## Rubric items
 
-### Explain the Starter Code
+### Explain the Starter Code [EtSC]
 
 #### import
 
@@ -74,25 +74,26 @@ sleep(1) instead of sleep(2)
 
 #### plan_path
 new.  generates waypoints and send them to simulator with send_waypoints
+TODO: expain in broad strokes what plan path does
 
 ##### send_waypoints
 new.  called from plan_path. use msgpack.dumps to write waypoints as data to simulator
 
 
-### Implementing Your Path Planning Algorithm
+### Implementing Your Path Planning Algorithm [IYPPA]
 
-#### set_home_postion
+#### [IYPPA-1] set_home_postion 
 
-#### determine your local position relative to global home
+#### [IYPPA-2] determine your local position relative to global home
 
-#### change start point for planning to current local position
+#### [IYPPA-3] change start point for planning to current local position
 
-#### add flexibility to the desired goal location
+#### [IYPPA-4 ] add flexibility to the desired goal location
 
-#### Write your search algorithm
+#### [IYPPA-5] Write your search algorithm
 
-#### Cull waypoints from the path
+#### [IYPPA]-6] Cull waypoints from the path
 
-### Executing the flight
+### Executing the flight [Etf]
 
 [//]: # (Mark Anderson // Feb 2018 cohort // 2018_03Mar_10)

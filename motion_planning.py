@@ -26,6 +26,7 @@ COLLIDERS_FN = 'colliders.csv'
 # rubric key
 # IYPPA-1 -- Implementing Your Path Planning Algorithm // set home position
 # IYPPA-2 -- retrieve current position in geodetic coordinates
+# IYPPA-3 -- change start point to current local position
 
 class MotionPlanning(Drone):
 
@@ -146,8 +147,8 @@ class MotionPlanning(Drone):
         # print(global_position)
  
         # DONE: convert to current local position using global_to_local()
-        current_local_position = global_to_local(global_position,self.global_home)
-        # print (current_local_position)
+        current_local_pos = global_to_local(global_position,self.global_home)
+        # print (current_local_pos)
         
         print('global home {0}, position {1}, local position {2}'.format(self.global_home, self.global_position,
                                                                          self.local_position))
@@ -163,10 +164,14 @@ class MotionPlanning(Drone):
 
         # Define a grid for a particular altitude and safety margin around obstacles
         grid = create_grid(data, TARGET_ALTITUDE, SAFETY_DISTANCE)
+
+        # IYPPA-3 begin
         # Define starting point on the grid (this is just grid center)
         grid_start = (north_offset, east_offset)
-        # TODO: convert start position to current position rather than map center
-        #start = (int(current_local_pos[0]+north_offset), int(current_local_pos[1]+east_offset))
+
+        # DONE: convert start position to current position rather than map center
+        grid_start = (int(current_local_pos[0]+north_offset), int(current_local_pos[1]+east_offset))
+        # IYPPA-3 end
         
         # Set goal as some arbitrary position on the grid
         grid_goal = (north_offset + 10, east_offset + 10)

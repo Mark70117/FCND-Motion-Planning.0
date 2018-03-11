@@ -21,6 +21,10 @@ class States(Enum):
     DISARMING = auto()
     PLANNING = auto()
 
+COLLIDERS_FN = 'colliders.csv'
+
+# rubric key
+# IYPPA-1 -- Implementing Your Path Planning Algorithm // set home position
 
 class MotionPlanning(Drone):
 
@@ -120,9 +124,21 @@ class MotionPlanning(Drone):
 
         self.target_position[2] = TARGET_ALTITUDE
 
-        # TODO: read lat0, lon0 from colliders into floating point values
-        
-        # TODO: set home position to (lat0, lon0, 0)
+        # IYPPA-1 begin
+        # DONE: read lat0, lon0 from colliders into floating point values
+        with open(COLLIDERS_FN) as f:
+            label = f.readline()
+            latLonStrArr = f.readline().rstrip().split(',')
+            lat0 = float(latLonStrArr[0])
+            lon0 = float(latLonStrArr[1])
+
+        # data = np.loadtxt(COLLIDERS_FN, delimiter=',', dtype='Float64', skiprows=3)
+        # print(data)
+
+        # DONE : set home position to (lat0, lon0, 0)
+        self.set_home_position(lat0, lon0, 0)
+        # IYPPA-1 end
+
 
         # TODO: retrieve current global position
  

@@ -27,6 +27,7 @@ COLLIDERS_FN = 'colliders.csv'
 # IYPPA-1 -- Implementing Your Path Planning Algorithm // set home position
 # IYPPA-2 -- retrieve current position in geodetic coordinates
 # IYPPA-3 -- change start point to current local position
+# IYPPA-4 -- change goal point 
 
 class MotionPlanning(Drone):
 
@@ -173,9 +174,21 @@ class MotionPlanning(Drone):
         grid_start = (int(current_local_pos[0]+north_offset), int(current_local_pos[1]+east_offset))
         # IYPPA-3 end
         
+        # IYPPA-4 start
         # Set goal as some arbitrary position on the grid
-        grid_goal = (north_offset + 10, east_offset + 10)
-        # TODO: adapt to set goal as latitude / longitude position and convert
+        #grid_goal = (north_offset + 10, east_offset + 10)
+        # DONE : adapt to set goal as latitude / longitude position and convert
+        # 37.795023,-122.400325 fails
+        # 37.793515,-122.397632 works
+        # 37.793375,-122.398791 fails
+        # 37.793490,-122.397895 works
+        # 37.793600,-122.397927 works
+        # 37.793528,-122.398560 crash
+        # 37.793794,-122.396580 crash
+        goal_local_pos = global_to_local([-122.397927,37.793600,self.global_home[2]],self.global_home)
+        grid_goal = (int(goal_local_pos[0]+north_offset), int(goal_local_pos[1]+east_offset))
+
+        # IYPPA-4 end
 
         # Run A* to find a path from start to goal
         # TODO: add diagonal motions with a cost of sqrt(2) to your A* implementation

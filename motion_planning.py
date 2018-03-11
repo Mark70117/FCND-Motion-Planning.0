@@ -25,6 +25,7 @@ COLLIDERS_FN = 'colliders.csv'
 
 # rubric key
 # IYPPA-1 -- Implementing Your Path Planning Algorithm // set home position
+# IYPPA-2 -- retrieve current position in geodetic coordinates
 
 class MotionPlanning(Drone):
 
@@ -132,20 +133,26 @@ class MotionPlanning(Drone):
             lat0 = float(latLonStrArr[0])
             lon0 = float(latLonStrArr[1])
 
-        # data = np.loadtxt(COLLIDERS_FN, delimiter=',', dtype='Float64', skiprows=3)
-        # print(data)
-
         # DONE : set home position to (lat0, lon0, 0)
-        self.set_home_position(lat0, lon0, 0)
+        # DONE : CORRECT set home position to (lon0, lat0, 0)
+        self.set_home_position(lon0, lat0, 0)
         # IYPPA-1 end
 
 
-        # TODO: retrieve current global position
+        # IYPPA-2 begin
+        # DONE: retrieve current global position
+        # print (self.global_home)
+        global_position = [self._longitude, self._latitude, self._altitude]
+        # print(global_position)
  
-        # TODO: convert to current local position using global_to_local()
+        # DONE: convert to current local position using global_to_local()
+        current_local_position = global_to_local(global_position,self.global_home)
+        # print (current_local_position)
         
         print('global home {0}, position {1}, local position {2}'.format(self.global_home, self.global_position,
                                                                          self.local_position))
+        # IYPPA-2 end
+
         # Read in obstacle map
         data = np.loadtxt('colliders.csv', delimiter=',', dtype='Float64', skiprows=3)
         # Determine offsets between grid and map

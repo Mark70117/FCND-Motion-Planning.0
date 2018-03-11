@@ -28,6 +28,7 @@ COLLIDERS_FN = 'colliders.csv'
 # IYPPA-2 -- retrieve current position in geodetic coordinates
 # IYPPA-3 -- change start point to current local position
 # IYPPA-4 -- change goal point 
+# IYPPA-5 -- write search algorithm
 
 class MotionPlanning(Drone):
 
@@ -193,6 +194,7 @@ class MotionPlanning(Drone):
         # Run A* to find a path from start to goal
         # TODO: add diagonal motions with a cost of sqrt(2) to your A* implementation
         # or move to a different search space such as a graph (not done here)
+        # IYPPA-5 in a_star [file: planning_utils.py]
         print('Local Start and Goal: ', grid_start, grid_goal)
         path, _ = a_star(grid, heuristic, grid_start, grid_goal)
         

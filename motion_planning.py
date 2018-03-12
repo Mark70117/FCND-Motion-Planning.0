@@ -6,6 +6,7 @@ from enum import Enum, auto
 import numpy as np
 
 from planning_utils import a_star, heuristic, create_grid
+from pruning_utils import prune_path
 from udacidrone import Drone
 from udacidrone.connection import MavlinkConnection
 from udacidrone.messaging import MsgID
@@ -29,6 +30,7 @@ COLLIDERS_FN = 'colliders.csv'
 # IYPPA-3 -- change start point to current local position
 # IYPPA-4 -- change goal point 
 # IYPPA-5 -- write search algorithm
+# IYPPA-6 -- cull waypoints
 
 class MotionPlanning(Drone):
 
@@ -198,7 +200,13 @@ class MotionPlanning(Drone):
         print('Local Start and Goal: ', grid_start, grid_goal)
         path, _ = a_star(grid, heuristic, grid_start, grid_goal)
         
+        # IYPPA-6 begin
         # TODO: prune path to minimize number of waypoints
+        print ("path: ", path)
+        path = prune_path(path)
+        print ("revised path: ", path)
+        # IYPPA-6 end
+
         # TODO (if you're feeling ambitious): Try a different approach altogether!
 
         # Convert path to waypoints
